@@ -8,18 +8,19 @@
 import UIKit
 
 class ResultViewController: UIViewController {
-    
+    // MARK: - Outlet
     @IBOutlet var resultLable: UILabel!
     @IBOutlet var resultLableText: UILabel!
     
+    // MARK: - data container
     var ansewrChosen: [Answer] = []
     
-    var answerDogCount: [AnimalType] = []
-    var answerCatCount: [AnimalType] = []
-    var answerRabbitCount: [AnimalType] = []
-    var answerTurtleCount: [AnimalType] = []
+    private var answerDogCount: [AnimalType] = []
+    private var answerCatCount: [AnimalType] = []
+    private var answerRabbitCount: [AnimalType] = []
+    private var answerTurtleCount: [AnimalType] = []
     
-    
+    // MARK: - override func
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.setHidesBackButton(true, animated: true)
@@ -29,17 +30,18 @@ class ResultViewController: UIViewController {
         comparsion(currentCount: answerRabbitCount, answerCount1: answerCatCount, answerCount2: answerDogCount, answerCount3: answerTurtleCount)
         comparsion(currentCount: answerTurtleCount, answerCount1: answerCatCount, answerCount2: answerRabbitCount, answerCount3: answerDogCount)
     }
-    
+    // MARK: - IBActiion
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
         ansewrChosen = []
+        
         answerDogCount = []
         answerCatCount = []
         answerTurtleCount = []
         answerRabbitCount = []
     }
-    func resultCalculate() {
-        
+    // MARK: - private func
+     private func resultCalculate() {
         for answer in ansewrChosen {
             let answertype = answer.type
             switch answertype {
@@ -53,9 +55,9 @@ class ResultViewController: UIViewController {
                 answerTurtleCount.append(answertype)
             }
         }
-        
     }
-    func comparsion (currentCount: [AnimalType], answerCount1: [AnimalType], answerCount2: [AnimalType],answerCount3: [AnimalType]) {
+    
+   private func comparsion (currentCount: [AnimalType], answerCount1: [AnimalType], answerCount2: [AnimalType],answerCount3: [AnimalType]) {
         switch currentCount {
         case _ where currentCount.count > answerCount1.count:
             fallthrough
@@ -64,10 +66,8 @@ class ResultViewController: UIViewController {
         case _ where currentCount.count > answerCount3.count:
             resultLable.text = String(currentCount.first?.rawValue ?? "🤬")
             resultLableText.text = currentCount.first?.definition
-        default:break
-            
+        default: break
         }
-        
     }
 }
 
